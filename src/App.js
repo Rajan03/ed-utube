@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import {Box} from "@mui/material";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {SignIn} from "modules/auth/SignIn";
+import {Register} from "./modules/auth/Register";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+	return (
+		<BrowserRouter>
+			<Box height={"100vh"} sx={t => ({backgroundColor: t.palette.primary.main})}>
+				<Routes>
+					{/*	Auth */}
+					<Route path={"/signIn"} element={<SignIn/>}/>
+					<Route path={"/register"} element={<Register/>}/>
+				</Routes>
+			</Box>
+		</BrowserRouter>
+	);
 }
 
 export default App;
