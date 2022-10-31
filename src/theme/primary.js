@@ -72,6 +72,11 @@ export default createTheme({
 					}
 				}
 			}
+		},
+		MuiSvgIcon: {
+			defaultProps: {
+				fontSize: "small",
+			}
 		}
 	}
 });

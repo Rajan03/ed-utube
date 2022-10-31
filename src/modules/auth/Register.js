@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {AuthLayout} from "layout/AuthLayout";
-import {Button, Checkbox, Stack, TextField, Typography} from "@mui/material";
+import {Button, Stack, TextField, Typography} from "@mui/material";
 import {Google} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 
