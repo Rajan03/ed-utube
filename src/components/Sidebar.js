@@ -1,33 +1,153 @@
-import {Box, Drawer, IconButton} from "@mui/material";
+import {Avatar, Box, Divider, IconButton, Stack} from "@mui/material";
 import useSidebar from "hook/useSidebar";
-import {MenuOutlined} from "@mui/icons-material";
+import {
+	ExploreOutlined,
+	FeedbackOutlined,
+	HelpOutlined,
+	HistoryOutlined,
+	HomeOutlined,
+	MenuOutlined,
+	Settings,
+	SubscriptionsOutlined,
+	VideoLibraryOutlined
+} from "@mui/icons-material";
+import {styled} from "@mui/styles";
+import MuiDrawer from '@mui/material/Drawer';
+import {logo} from "utils/constants";
 
-export const Sidebar = ({isAuthenticated}) => {
-	const {changeSidebarState, open} = useSidebar();
+// Menus Array
+const menus = [
+	{
+		icon: <HomeOutlined/>,
+		title: "Home",
+	},
+	{
+		icon: <ExploreOutlined/>,
+		title: "Explore",
+	},
+	{
+		icon: <SubscriptionsOutlined/>,
+		title: "Subscriptions",
+	},
+	{
+		icon: <VideoLibraryOutlined/>,
+		title: "Library",
+	},
+	{
+		icon: <HistoryOutlined/>,
+		title: "History",
+	},
+];
+
+// Menu Item
+const SidebarMenu = ({icon, title, onlyIcon}) => {
+
+	if (onlyIcon) return <IconButton>{icon}</IconButton>
 
 	return (
-		<>
-			<Box position={"absolute"} top={0} left={0}
-					 minHeight={"100%"} bgcolor={"primary.dark"}>
-				<SidebarDrawer />
-			</Box>
-		</>
+		<Stack direction={"row"} alignItems={"center"} p={1} spacing={2}
+					 sx={{cursor: "pointer"}}>
+			<IconButton color={"secondary"}>
+				{icon}
+			</IconButton>
+			<Box component={"span"} fontSize={"14px"}>{title}</Box>
+		</Stack>
 	);
 }
 
-const SidebarDrawer = () => {
-	const {changeSidebarState, open} = useSidebar();
-	console.log(open)
+
+// Sidebar Component
+export const Sidebar = ({isAuthenticated}) => {
+	const {open, changeSidebarState} = useSidebar();
+
+
 	return (
 		<>
-			<IconButton onClick={() => changeSidebarState(true)}>
-				<MenuOutlined/>
-			</IconButton>
-			<Drawer variant={"persistent"} anchor={"left"} open={open}
-							onClose={() => changeSidebarState(false)}
-			sx={{width: 200}}>
+			<Drawer variant={"permanent"} open={open}>
+				<>
+					{/* Drawer Header with fixed height to have same UI in open and closed state */}
+					<Stack minHeight={"56px"} p={1} direction={"row"} justifyContent={open ? "stretch" : "center"}>
 
+						{/* Logo Only in Expand State */}
+						{open && (
+							<Stack direction={"row"} alignItems={"center"} columnGap={"10px"} flex={1}>
+								<Avatar src={logo} sx={{width: 30, height: 30}}/>
+								<Box component={"span"} fontWeight={"bold"} fontSize={18}>YouTube</Box>
+							</Stack>
+						)}
+
+						{/* Menu Button */}
+						<IconButton color={"secondary"} onClick={() => changeSidebarState(!open)}>
+							<MenuOutlined fontSize={"medium"} color={"action"}/>
+						</IconButton>
+					</Stack>
+
+					{/* Drawer Body - Menus */}
+					<Box p={1}>
+						<Stack direction={"column"} alignItems={"flex-start"} justifyContent={"center"} rowGap={"7px"}>
+							{menus.map((menu, index) => <SidebarMenu key={index} onlyIcon={!open} {...menu}/>)}
+						</Stack>
+
+						{/* Subscriptions Will render */}
+						{isAuthenticated && (
+							<>
+							</>
+						)}
+					</Box>
+
+					{/* Drawer Footer - Only in Expand State */}
+					{open && (
+						<Box mt={"auto"} p={1}>
+							<Divider />
+							<Stack direction={"column"} alignItems={"flex-start"} justifyContent={"center"} rowGap={"7px"}>
+								<SidebarMenu icon={<Settings/>} title={"Settings"}/>
+								<SidebarMenu icon={<HelpOutlined/>} title={"Help"}/>
+								<SidebarMenu icon={<FeedbackOutlined/>} title={"Send Feedback"}/>
+							</Stack>
+						</Box>
+					)}
+				</>
 			</Drawer>
 		</>
 	);
 }
+
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+	width: drawerWidth,
+	transition: theme.transitions.create(['width', 'min-width'], {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.enteringScreen,
+	}),
+	overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+	transition: theme.transitions.create(['width', 'min-width'], {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.leavingScreen,
+	}),
+	overflowX: 'hidden',
+	width: `calc(${theme.spacing(7)} + 1px)`,
+	[theme.breakpoints.up('sm')]: {
+		width: `calc(${theme.spacing(8)} + 1px)`,
+	},
+});
+
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+	({theme, open}) => ({
+		width: drawerWidth,
+		flexShrink: 0,
+		whiteSpace: 'nowrap',
+		boxSizing: 'border-box',
+		...(open && {
+			...openedMixin(theme),
+			'& .MuiDrawer-paper': openedMixin(theme),
+		}),
+		...(!open && {
+			...closedMixin(theme),
+			'& .MuiDrawer-paper': closedMixin(theme),
+		}),
+	}),
+);
