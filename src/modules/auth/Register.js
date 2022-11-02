@@ -1,11 +1,17 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AuthLayout} from "layout/AuthLayout";
 import {Button, Stack, TextField, Typography} from "@mui/material";
 import {Google} from "@mui/icons-material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import useAuth from "hook/useAuth";
 
 export const Register = () => {
-	const [checked, setChecked] = useState(true);
+	const {signIn, loading, error, user} = useAuth();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (user) navigate("/");
+	}, [user]);
 
 	const submitForm = (e) => {
 		e.preventDefault();

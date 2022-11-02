@@ -17,7 +17,7 @@ export const AppLayout = ({children}) => {
 				{/*	Content */}
 				<Stack direction={"row"} alignItems={"stretch"} flexGrow={1}>
 					{/*	Sidebar */}
-					<Sidebar isAuthenticated={!user}/>
+					<Sidebar isAuthenticated={!!user}/>
 
 					<Box flex={1}>
 						{children}

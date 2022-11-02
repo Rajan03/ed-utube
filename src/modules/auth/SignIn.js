@@ -1,30 +1,38 @@
-import {useState} from "react";
-import {AuthLayout} from "layout/AuthLayout";
+import {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {Button, Checkbox, Stack, TextField, Typography} from "@mui/material";
 import {Google} from "@mui/icons-material";
-import {Link} from "react-router-dom";
+import {AuthLayout} from "layout/AuthLayout";
+import useAuth from "hook/useAuth";
 
 export const SignIn = () => {
 	const [checked, setChecked] = useState(true);
+	const {signIn, loading, error, user} = useAuth();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (user) navigate("/");
+	}, [user]);
 
 	const submitForm = (e) => {
 		e.preventDefault();
-		console.log("Form Submitted");
+		signIn();
 	}
 	return (
 		<AuthLayout title={"Sign In"}>
 			<form onSubmit={submitForm}>
 				<TextField required fullWidth label="Email"
 									 autoComplete={"email"} autoFocus error={false}
-									 helperText={" "}/>
+									 helperText={" "} disabled={loading}/>
 				<TextField required fullWidth label="Password"
 									 type={"password"} autoComplete={"off"}
-									 error={false} helperText={" "}/>
+									 error={false} helperText={" "} disabled={loading}/>
 
 				{/* Action Texts */}
 				<Stack direction={"row"} justifyContent={"space-between"}>
 					<Stack direction={"row"} alignItems={"center"} columnGap={"7px"}>
-						<Checkbox checked={checked} onChange={() => setChecked(!checked)}/>
+						<Checkbox checked={checked} onChange={() => setChecked(!checked)}
+											disabled={loading}/>
 						<Typography variant={"caption"} color={"primary.contrastText"}>
 							Remember me
 						</Typography>
@@ -36,7 +44,8 @@ export const SignIn = () => {
 
 				{/*	Submit Button */}
 				<Button variant={"contained"} color={"secondary"} size={"large"}
-								fullWidth sx={{marginTop: "50px"}} type={"submit"}>
+								fullWidth sx={{marginTop: "50px"}} type={"submit"}
+								disabled={loading}>
 					<Typography component={"span"} fontSize={"16px"} variant={"button"}
 											fontWeight={"bold"} textTransform={"capitalize"}>
 						Sign In
@@ -63,7 +72,7 @@ export const SignIn = () => {
 				<Stack maxWidth={"max-content"} mt={3} direction={"row"} justifyContent={"start"} alignItems={"center"}
 							 columnGap={"30px"} mx={"auto"}>
 					<Button variant={"text"} color={"secondary"} size={"large"}
-									startIcon={<Google color={"action"}/>}>
+									startIcon={<Google color={"action"}/>} disabled={loading}>
 						<Typography component={"span"} fontSize={"12px"} fontWeight={"bold"}
 												sx={t => ({color: t.palette.grey["100"]})}>
 							Sign Up with Google

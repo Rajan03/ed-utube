@@ -1,11 +1,10 @@
 import {Avatar, Box, Divider, IconButton, Stack} from "@mui/material";
-import useSidebar from "hook/useSidebar";
 import {
 	ExploreOutlined,
 	FeedbackOutlined,
 	HelpOutlined,
 	HistoryOutlined,
-	HomeOutlined,
+	HomeOutlined, Logout,
 	MenuOutlined,
 	Settings,
 	SubscriptionsOutlined,
@@ -14,6 +13,8 @@ import {
 import {styled} from "@mui/styles";
 import MuiDrawer from '@mui/material/Drawer';
 import {logo} from "utils/constants";
+import useAuth from "hook/useAuth";
+import useSidebar from "hook/useSidebar";
 
 // Menus Array
 const menus = [
@@ -40,14 +41,14 @@ const menus = [
 ];
 
 // Menu Item
-const SidebarMenu = ({icon, title, onlyIcon}) => {
+const SidebarMenu = ({icon, title, onlyIcon, onClick}) => {
 
 	if (onlyIcon) return <IconButton>{icon}</IconButton>
 
 	return (
 		<Stack direction={"row"} alignItems={"center"} p={1} spacing={2}
 					 sx={{cursor: "pointer"}}>
-			<IconButton color={"secondary"}>
+			<IconButton color={"secondary"} onClick={onClick}>
 				{icon}
 			</IconButton>
 			<Box component={"span"} fontSize={"14px"}>{title}</Box>
@@ -59,7 +60,7 @@ const SidebarMenu = ({icon, title, onlyIcon}) => {
 // Sidebar Component
 export const Sidebar = ({isAuthenticated}) => {
 	const {open, changeSidebarState} = useSidebar();
-
+	const {signOut} = useAuth();
 
 	return (
 		<>
@@ -85,7 +86,7 @@ export const Sidebar = ({isAuthenticated}) => {
 					{/* Drawer Body - Menus */}
 					<Box p={1}>
 						<Stack direction={"column"} alignItems={"flex-start"} justifyContent={"center"} rowGap={"7px"}>
-							{menus.map((menu, index) => <SidebarMenu key={index} onlyIcon={!open} {...menu}/>)}
+							{menus.map((menu, i) => <SidebarMenu key={i} onlyIcon={!open} {...menu}/>)}
 						</Stack>
 
 						{/* Subscriptions Will render */}
@@ -103,6 +104,7 @@ export const Sidebar = ({isAuthenticated}) => {
 								<SidebarMenu icon={<Settings/>} title={"Settings"}/>
 								<SidebarMenu icon={<HelpOutlined/>} title={"Help"}/>
 								<SidebarMenu icon={<FeedbackOutlined/>} title={"Send Feedback"}/>
+								<SidebarMenu icon={<Logout/>} title={"Logout"} onClick={signOut}/>
 							</Stack>
 						</Box>
 					)}
@@ -116,6 +118,7 @@ const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
 	width: drawerWidth,
+	minWidth: drawerWidth,
 	transition: theme.transitions.create(['width', 'min-width'], {
 		easing: theme.transitions.easing.sharp,
 		duration: theme.transitions.duration.enteringScreen,

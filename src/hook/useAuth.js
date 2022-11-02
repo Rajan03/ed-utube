@@ -1,34 +1,52 @@
 import {createContext, useContext, useEffect, useMemo, useState} from "react";
+import {user as dummyUser} from "utils/data"
 
 const AuthContext = createContext({});
 
-
 export const AuthProvider = ({children}) => {
 	const [loading, setLoading] = useState(true);
-	const [user, setUser] = useState({
-		name: "John Doe",
-		email: "johnDoe@gmail.com",
-		avatar: "https://i.pravatar.cc/150?img=1"
-	});
+	const [user, setUser] = useState(null);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
+		const user = getUser();
+		if (user) {
+			signIn(user.email, user.password);
+		}
 		setTimeout(() => setLoading(false), 2000);
 	}, []);
 
-	const signIn = async (email, password) => {
-		console.log({email, password});
+	const getUser = () => {
+		return JSON.parse(localStorage.getItem("user"));
 	}
 
-	const signUp = async (name, email, password) => {
+	const storeUser = (user) => {
+		localStorage.setItem("user", JSON.stringify(user));
+	}
+
+	const removeUser = () => {
+		localStorage.removeItem("user");
+	}
+
+	const signIn = (email, password) => {
+		setLoading(true);
+		setUser(dummyUser);
+		storeUser(dummyUser);
+		setTimeout(() => setLoading(false), 2000)
+	}
+
+	const signUp = (name, email, password) => {
 		console.log({name, email, password});
 	}
 
-	const signOut = async () => {
-		console.log("signOut");
+	const signOut = () => {
+		setLoading(true);
+		setUser(null);
+		removeUser();
+		setTimeout(() => setLoading(false), 2000)
 	}
 
-	const resetPassword = async (email) => {
+	const resetPassword = (email) => {
 		console.log({email});
 	}
 
