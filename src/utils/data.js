@@ -314,6 +314,8 @@ export const getVideos = () => {
 				avatar: "https://i.pravatar.cc/300",
 			},
 			views: 1000,
+			likes: 200,
+			dislikes: 10,
 			timestamp: (Math.floor(Math.random() * 9) + 1) + " days ago"
 		});
 	}

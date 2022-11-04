@@ -87,6 +87,12 @@ export default createTheme({
 				fontSize: "small",
 				color: "action",
 			}
+		},
+		MuiIconButton: {
+			defaultProps: {
+				disableTouchRipple: true,
+				size: "small",
+			}
 		}
 	}
 });

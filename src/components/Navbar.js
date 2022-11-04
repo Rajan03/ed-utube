@@ -14,7 +14,8 @@ export const Navbar = ({user}) => {
 		<Stack direction={"row"} p={1} position={"sticky"} top={0} bgcolor={"primary.main"}
 					 sx={t => ({
 						 maxHeight: t.mixins.navbar.height + "px",
-						 height: t.mixins.navbar.height + "px"
+						 height: t.mixins.navbar.height + "px",
+						 zIndex: t.zIndex.drawer,
 					 })}>
 			<Stack direction={"row"} justifyContent={"center"} flex={1}>
 				<SearchBar onSearch={search}/>

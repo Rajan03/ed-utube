@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Box, Stack} from "@mui/material";
+import {Box, Grid, Stack} from "@mui/material";
 import {AppLayout} from "layout/AppLayout";
 import {CategoryTabs, VideoCard} from "components";
 import {categories, getVideos} from "utils/data";
@@ -10,17 +10,20 @@ export const HomeFeed = () => {
 
 	return (
 		<AppLayout>
-			<Stack direction={"column"} mt={1}>
+			<Stack direction={"column"}>
 				{/* Categories Tabs */}
 				<CategoryTabs categories={categories} activeCategory={activeCategory}
-											setActiveCategory={setActiveCategory}/>
+											setActiveCategory={setActiveCategory} sx={{paddingTop: 1}}/>
 
 				{/* Videos Cards - Scrollable */}
-				<Stack direction={"column"} p={2} flex={1}>
-					<Box p={2} bgcolor={"primary.dark"}>
-						{videos.map(video => <VideoCard key={video.id} video={video}/>)}
-					</Box>
-				</Stack>
+				<Grid container component={"div"} spacing={4}							p={4}	borderRadius={2}>
+					{videos.map(video => (
+						<Grid item md={3} key={video.id}>
+							<VideoCard video={video}/>
+						</Grid>
+					))}
+				</Grid>
+
 			</Stack>
 		</AppLayout>
 	);

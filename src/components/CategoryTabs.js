@@ -8,6 +8,7 @@ const styles = makeStyles(theme => ({
 		maxHeight: 45,
 		backgroundColor: theme.palette.primary.main,
 		boxShadow: '0 1px 1px 0 ' + theme.palette.divider,
+		zIndex: theme.zIndex.drawer,
 
 		"& .MuiTabs-scrollButtons.Mui-disabled": {
 			opacity: 0.3
@@ -42,13 +43,13 @@ const styles = makeStyles(theme => ({
 	},
 }));
 
-export const CategoryTabs = ({categories, activeCategory, setActiveCategory}) => {
+export const CategoryTabs = ({categories, activeCategory, setActiveCategory, ...props}) => {
 	const {root, indicator, tabRoot} = styles();
 
 	return (
 		<Tabs value={activeCategory} onChange={(e, v) => setActiveCategory(v)}
 					variant={"scrollable"} scrollButtons allowScrollButtonsMobile
-					classes={{root, indicator}}>
+					classes={{root, indicator}} {...props}>
 			{categories.map((category, i) => (
 				<Tab key={category + i} label={category} value={category}
 						 disableRipple disableFocusRipple
