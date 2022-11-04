@@ -14,6 +14,15 @@ export default createTheme({
 	typography: {
 		fontFamily: "Montserrat, sans-serif",
 	},
+	mixins: {
+		sidebar: {
+			width: 240,
+			collapsedWidth: 64,
+		},
+		navbar: {
+			height: 56,
+		}
+	},
 	components: {
 		MuiTextField: {
 			defaultProps: {

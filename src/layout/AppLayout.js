@@ -1,29 +1,34 @@
-import {Box, Stack} from "@mui/material";
+import {Stack} from "@mui/material";
 
 import useAuth from "hook/useAuth";
-import {SidebarProvider} from "hook/useSidebar";
+import useSidebar from "hook/useSidebar";
 
 import {Navbar, Sidebar} from "components";
 
 export const AppLayout = ({children}) => {
 	const {user} = useAuth();
+	const {open} = useSidebar();
 
+	console.log(open)
 	return (
-		<SidebarProvider>
-			<Stack direction={"column"} alignItems={"stretch"}>
-				{/*	Header */}
-				<Navbar user={user} />
+		<Stack flex={1} direction={"column"} alignItems={"stretch"}>
+			{/*	Header */}
+			<Navbar user={user} />
 
-				{/*	Content */}
-				<Stack direction={"row"} alignItems={"stretch"} flexGrow={1}>
-					{/*	Sidebar */}
-					<Sidebar isAuthenticated={!!user}/>
+			{/*	Content */}
+			<Stack direction={"row"} alignItems={"stretch"} flex={1} maxWidth={"100%"}>
+				{/*	Sidebar */}
+				<Sidebar isAuthenticated={!!user}/>
 
-					<Box flex={1}>
-						{children}
-					</Box>
+				<Stack direction={"column"} flex={1} maxWidth={"inherit"}
+							 sx={t => ({
+								 paddingLeft: open
+									 ? t.mixins.sidebar.width + 'px'
+									 : t.mixins.sidebar.collapsedWidth + 'px'
+							 })}>
+					{children}
 				</Stack>
 			</Stack>
-		</SidebarProvider>
+		</Stack>
 	);
 }

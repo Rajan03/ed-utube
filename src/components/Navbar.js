@@ -10,9 +10,12 @@ export const Navbar = ({user}) => {
 		console.log(query);
 	}
 
-
 	return (
-		<Stack direction={"row"} p={1}>
+		<Stack direction={"row"} p={1} position={"sticky"} top={0} bgcolor={"primary.main"}
+					 sx={t => ({
+						 maxHeight: t.mixins.navbar.height + "px",
+						 height: t.mixins.navbar.height + "px"
+					 })}>
 			<Stack direction={"row"} justifyContent={"center"} flex={1}>
 				<SearchBar onSearch={search}/>
 			</Stack>
@@ -42,7 +45,7 @@ export const Navbar = ({user}) => {
 							</IconButton>
 
 							<Link to={"/signIn"}>
-								<RedIconBtn title={"Sign In"} />
+								<RedIconBtn title={"Sign In"}/>
 							</Link>
 						</Stack>
 					)}

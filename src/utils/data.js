@@ -275,6 +275,30 @@ export const user = {
 	]
 };
 
+export const categories = [
+	'All',
+	'JavaScript',
+	'Python',
+	'Ruby',
+	'Java',
+	'Go',
+	'C++',
+	'C#',
+	'PHP',
+	'Kotlin',
+	'HTML',
+	'CSS',
+	'Swift',
+	'Objective-C',
+	'Assembly',
+	'C',
+	'Rust',
+	'Scala',
+	'Perl',
+	'Groovy',
+	'Haskell',
+	'Clojure',
+]
 
 export const getVideos = () => {
 	const videos = [];
@@ -283,7 +307,7 @@ export const getVideos = () => {
 			id: i,
 			title: "Video " + Math.floor(Math.random() * 9) + 1,
 			duration: Math.floor(Math.random() * 9) + 1 + ":30",
-			thumbnail: "https://i.pravatar.cc/300",
+			thumbnail: "https://picsum.photos/300/200",
 			channel: {
 				id: Math.floor(Math.random() * 9) + 1,
 				name: "Channel " + Math.floor(Math.random() * 9) + 1,

@@ -43,7 +43,7 @@ const menus = [
 // Menu Item
 const SidebarMenu = ({icon, title, onlyIcon, onClick}) => {
 
-	if (onlyIcon) return <IconButton>{icon}</IconButton>
+	if (onlyIcon) return <IconButton color={"secondary"} onClick={onClick}>{icon}</IconButton>
 
 	return (
 		<Stack direction={"row"} alignItems={"center"} p={1} spacing={2}
@@ -55,7 +55,6 @@ const SidebarMenu = ({icon, title, onlyIcon, onClick}) => {
 		</Stack>
 	);
 }
-
 
 // Sidebar Component
 export const Sidebar = ({isAuthenticated}) => {
@@ -85,7 +84,8 @@ export const Sidebar = ({isAuthenticated}) => {
 
 					{/* Drawer Body - Menus */}
 					<Box p={1}>
-						<Stack direction={"column"} alignItems={"flex-start"} justifyContent={"center"} rowGap={"7px"}>
+						<Stack direction={"column"} justifyContent={"center"} rowGap={"7px"}
+									 alignItems={open ? "flex-start" : "center"}>
 							{menus.map((menu, i) => <SidebarMenu key={i} onlyIcon={!open} {...menu}/>)}
 						</Stack>
 
@@ -99,7 +99,7 @@ export const Sidebar = ({isAuthenticated}) => {
 					{/* Drawer Footer - Only in Expand State */}
 					{open && (
 						<Box mt={"auto"} p={1}>
-							<Divider />
+							<Divider/>
 							<Stack direction={"column"} alignItems={"flex-start"} justifyContent={"center"} rowGap={"7px"}>
 								<SidebarMenu icon={<Settings/>} title={"Settings"}/>
 								<SidebarMenu icon={<HelpOutlined/>} title={"Help"}/>
@@ -114,36 +114,25 @@ export const Sidebar = ({isAuthenticated}) => {
 	);
 }
 
-const drawerWidth = 240;
-
 const openedMixin = (theme) => ({
-	width: drawerWidth,
-	minWidth: drawerWidth,
-	transition: theme.transitions.create(['width', 'min-width'], {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.enteringScreen,
-	}),
+	width: theme.mixins.sidebar.width,
+	minWidth: theme.mixins.sidebar.width,
 	overflowX: 'hidden',
 });
 
 const closedMixin = (theme) => ({
-	transition: theme.transitions.create(['width', 'min-width'], {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen,
-	}),
 	overflowX: 'hidden',
-	width: `calc(${theme.spacing(7)} + 1px)`,
-	[theme.breakpoints.up('sm')]: {
-		width: `calc(${theme.spacing(8)} + 1px)`,
-	},
+	width: theme.mixins.sidebar.collapsedWidth,
 });
 
 const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
 	({theme, open}) => ({
-		width: drawerWidth,
+		position: 'fixed',
+		width: theme.mixins.sidebar.width,
 		flexShrink: 0,
 		whiteSpace: 'nowrap',
 		boxSizing: 'border-box',
+		zIndex: theme.zIndex.drawer,
 		...(open && {
 			...openedMixin(theme),
 			'& .MuiDrawer-paper': openedMixin(theme),
