@@ -1,14 +1,6 @@
 import {Avatar, Box, IconButton, Stack} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import {
-	MoreVertOutlined,
-	PlayArrow,
-	PlayArrowOutlined,
-	ThumbDown,
-	ThumbDownOutlined,
-	ThumbUp,
-	ThumbUpOutlined
-} from "@mui/icons-material";
+import {MoreVertOutlined, PlayArrowOutlined, ThumbDownOutlined, ThumbUpOutlined} from "@mui/icons-material";
 
 const styles = makeStyles(theme => ({
 	thumbnails: {
@@ -60,7 +52,7 @@ export const VideoCard = ({video}) => {
 	const classes = styles();
 
 	return (
-		<Box>
+		<Box  minWidth={"345px"}>
 			{/* Video Thumbnail */}
 			<Box position={"relative"} className={classes.thumbnails}>
 				<Box component={"img"} src={thumbnail} alt={title}/>
@@ -117,16 +109,18 @@ export const VideoCard = ({video}) => {
 					</Box>
 
 					{/* Channel Details */}
-					<Stack direction={"row"} justifyContent={"start"} columnGap={"25px"}>
+					<Stack maxWidth={"100%"} direction={"row"} justifyContent={"start"} columnGap={"25px"}>
 						{/* Channel Name */}
-						<Box component={"span"} fontSize={12} fontWeight={400}
-								 color={'text.secondary'}>
+						<Box flex={1} component={"span"} fontSize={12} fontWeight={400}
+								 color={'text.secondary'} textOverflow={"ellipsis"}
+								 overflow={"hidden"} whiteSpace={"nowrap"}>
 							{channel.name}
 						</Box>
 
 						{/* Views */}
-						<Box component={"span"} fontSize={12} fontWeight={400}
-								 color={'text.disabled'}>
+						<Box flex={1.5} component={"span"} fontSize={12} fontWeight={400}
+								 color={'text.disabled'} textOverflow={"ellipsis"}
+								 overflow={"hidden"} whiteSpace={"nowrap"}>
 							{views} views &nbsp; | &nbsp; {timestamp}
 						</Box>
 					</Stack>

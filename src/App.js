@@ -1,10 +1,9 @@
 import {Stack} from "@mui/material";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import {Register, SignIn} from "modules/auth";
-import {HomeFeed} from "modules/Home";
-import {AuthProvider} from "./hook/useAuth";
-import {SidebarProvider} from "./hook/useSidebar";
+import {AuthProvider} from "hook/useAuth";
+import {SidebarProvider} from "hook/useSidebar";
+import {ExploreFeed, HomeFeed, Register, SignIn, SubscriptionsFeed} from "modules";
 
 function App() {
 
@@ -21,6 +20,10 @@ function App() {
 
 							{/*	Home */}
 							<Route path={"/"} element={<HomeFeed/>}/>
+							<Route path={"/explore"} element={<ExploreFeed/>}/>
+							<Route path={"/subscriptions"} element={<SubscriptionsFeed/>}/>
+							<Route path={"/library"} element={<HomeFeed/>}/>
+							<Route path={"/history"} element={<HomeFeed/>}/>
 						</Routes>
 					</SidebarProvider>
 				</Stack>

@@ -1,3 +1,14 @@
+import {
+	FavoriteOutlined,
+	HeadphonesOutlined, LiveTvOutlined,
+	LocalLibraryOutlined,
+	NewspaperOutlined, PublicOutlined,
+	SportsEsportsOutlined,
+	SportsFootballOutlined,
+	VideocamOutlined,
+	WhatshotOutlined
+} from "@mui/icons-material";
+
 export const user = {
 	username: "john doe",
 	avatar: "https://i.pravatar.cc/300",
@@ -298,7 +309,69 @@ export const categories = [
 	'Groovy',
 	'Haskell',
 	'Clojure',
-]
+];
+export const timings = [
+	'Today',
+	'Yesterday',
+	'This Week',
+	'This Month',
+	'Last Month',
+	'This Year',
+	'Older',
+];
+
+export const exploreCategories = [
+	{
+		id: 1,
+		title: 'Trending',
+		icon: <WhatshotOutlined/>,
+	},
+	{
+		id: 2,
+		title: 'Gaming',
+		icon: <SportsEsportsOutlined/>,
+	},
+	{
+		id: 3,
+		title: 'Music',
+		icon: <HeadphonesOutlined/>,
+	},
+	{
+		id: 4,
+		title: 'News',
+		icon: <NewspaperOutlined/>,
+	},
+	{
+		id: 5,
+		title: 'Movies',
+		icon: <VideocamOutlined/>,
+	},
+	{
+		id: 6,
+		title: 'Fashion',
+		icon: <FavoriteOutlined/>,
+	},
+	{
+		id: 7,
+		title: 'Learning',
+		icon: <LocalLibraryOutlined/>,
+	},
+	{
+		id: 8,
+		title: 'Sports',
+		icon: <SportsFootballOutlined/>,
+	},
+	{
+		id: 9,
+		title: 'Live',
+		icon: <LiveTvOutlined/>,
+	},
+	{
+		id: 10,
+		title: '360° Video',
+		icon: <PublicOutlined/>,
+	}
+];
 
 export const getVideos = () => {
 	const videos = [];

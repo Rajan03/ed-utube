@@ -9,7 +9,6 @@ export const AppLayout = ({children}) => {
 	const {user} = useAuth();
 	const {open} = useSidebar();
 
-	console.log(open)
 	return (
 		<Stack flex={1} direction={"column"} alignItems={"stretch"}>
 			{/*	Header */}
@@ -20,9 +19,11 @@ export const AppLayout = ({children}) => {
 				{/*	Sidebar */}
 				<Sidebar isAuthenticated={!!user}/>
 
-				<Stack direction={"column"} flex={1} maxWidth={"inherit"}
+				<Stack flex={1} direction={"column"} maxWidth={"inherit"}
+							 overflow={"hidden"}
 							 sx={t => ({
-								 paddingLeft: open
+								 maxHeight: "calc(100vh - " + t.mixins.navbar.height + "px)",
+								 marginLeft: open
 									 ? t.mixins.sidebar.width + 'px'
 									 : t.mixins.sidebar.collapsedWidth + 'px'
 							 })}>

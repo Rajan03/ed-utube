@@ -1,6 +1,16 @@
 import {createTheme} from "@mui/material";
 
 export default createTheme({
+	breakpoints: {
+		values: {
+			xs: 0,
+			sm: 600,
+			tab: 780,
+			md: 960,
+			lg: 1280,
+			xl: 1920,
+		},
+	},
 	palette: {
 		mode: 'dark',
 		primary: {
@@ -21,6 +31,9 @@ export default createTheme({
 		},
 		navbar: {
 			height: 56,
+		},
+		exploreCards: {
+			height: 170,
 		}
 	},
 	components: {

@@ -3,12 +3,10 @@ import {makeStyles} from "@mui/styles";
 
 const styles = makeStyles(theme => ({
 	root: {
-		position: "sticky",
-		top: theme.mixins.navbar.height + 'px',
 		maxHeight: 45,
 		backgroundColor: theme.palette.primary.main,
 		boxShadow: '0 1px 1px 0 ' + theme.palette.divider,
-		zIndex: theme.zIndex.drawer,
+		zIndex: theme.zIndex.drawer - 1,
 
 		"& .MuiTabs-scrollButtons.Mui-disabled": {
 			opacity: 0.3
@@ -43,6 +41,7 @@ const styles = makeStyles(theme => ({
 	},
 }));
 
+// @TODO: Rename component to be a general tabs component
 export const CategoryTabs = ({categories, activeCategory, setActiveCategory, ...props}) => {
 	const {root, indicator, tabRoot} = styles();
 
